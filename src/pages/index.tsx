@@ -2,6 +2,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 
+import { motion } from "framer-motion";
+
 const Home: NextPage = () => {
   const [processing, setProcessing] = useState(false);
   const [fiveWords, setfiveWords] = useState("");
@@ -13,7 +15,12 @@ const Home: NextPage = () => {
         <title>Next word predictor</title>
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
-        <div className="relative flex flex-col items-center gap-8">
+        <motion.div
+          initial={{ y: 30 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="custom-shadow relative flex flex-col items-center gap-8 rounded-xl p-8 pb-32"
+        >
           <div className="flex flex-col items-center gap-2">
             <h1 className="text-[24px] font-bold text-blue-700">
               Welcome to THE next word predictor
@@ -78,16 +85,21 @@ const Home: NextPage = () => {
             </button>
           </form>
           {predictedWord && (
-            <div className="absolute -bottom-20 rounded-md bg-[#1C2B36] px-4 py-2 font-semibold text-white">
+            <motion.div
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeIn" }}
+              className="absolute bottom-8 rounded-md bg-[#1C2B36] px-4 py-2 font-semibold text-white shadow-md"
+            >
               <p>
                 {fiveWords}{" "}
                 <span className="font-bold text-[#DD430C]">
                   {predictedWord}
                 </span>
               </p>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </main>
     </>
   );
